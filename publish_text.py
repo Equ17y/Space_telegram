@@ -14,8 +14,8 @@ def publish_text_to_channel(bot_token, channel_id, text):
 
     try:
         response = requests.post(url, json=payload)
-        data = response.json()
         response.raise_for_status()
+        data = response.json()
 
         if data['ok']:
             print("Текст успешно опубликован в канал!")
@@ -23,8 +23,9 @@ def publish_text_to_channel(bot_token, channel_id, text):
         else:
             print(f"Ошибка: {data['description']}")
 
-    except Exception as e:
-        print(f"Ошибка: {e}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка при отправке запроса: {e}")
 
 
 def main():

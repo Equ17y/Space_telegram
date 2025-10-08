@@ -2,26 +2,12 @@ import os
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
 
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-TELEGRAM_CHANNEL_ID = os.getenv('TELEGRAM_CHANNEL_ID')
-
-
-def publish_text_to_channel():
-
-    text = """ Добро пожаловать в космический канал!
-
-Здесь мы публикуем самые удивительные фотографии космоса:
-• Изображения далеких галактик
-• И многое другое!
-
-Следите за обновлениями! """
-
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+def publish_text_to_channel(bot_token, channel_id, text):
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 
     payload = {
-        'chat_id': TELEGRAM_CHANNEL_ID,
+        'chat_id': channel_id,
         'text': text,
         'parse_mode': 'HTML'
     }
@@ -42,7 +28,20 @@ def publish_text_to_channel():
 
 
 def main():
-    publish_text_to_channel()
+    load_dotenv()
+
+    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+    TELEGRAM_CHANNEL_ID = os.getenv('TELEGRAM_CHANNEL_ID')
+
+    text = """ Добро пожаловать в космический канал!
+
+Здесь мы публикуем самые удивительные фотографии космоса:
+• Изображения далеких галактик
+• И многое другое!
+
+Следите за обновлениями! """
+
+    publish_text_to_channel(TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID, text)
 
 if __name__ == '__main__':
     main()

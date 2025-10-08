@@ -1,4 +1,3 @@
-import sys
 import time
 import random
 import argparse
@@ -6,15 +5,6 @@ import os
 import requests
 from dotenv import load_dotenv
 
-try:
-    import imghdr
-except ImportError:
-    class FakeImghdr:
-        @staticmethod
-        def what(file, h=None): return None
-
-
-    sys.modules['imghdr'] = FakeImghdr()
 
 def main():
     load_dotenv()

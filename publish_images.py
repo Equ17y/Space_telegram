@@ -42,10 +42,12 @@ def main():
 
             url = f"https://api.telegram.org/bot{telegram_api_key}/sendPhoto"
             with open(image_path, 'rb') as f:
-                files = {'photo': f}
-                data = {'chat_id': chat_id}
-                response = requests.post(url, files=files, data=data)
-                response.raise_for_status()
+                photo_content = f.read()
+
+            files = {'photo': photo_content}
+            data = {'chat_id': chat_id}
+            response = requests.post(url, files=files, data=data)
+            response.raise_for_status()
 
             time.sleep(sec_per_hour * post_delay)
 

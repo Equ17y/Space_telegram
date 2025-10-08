@@ -44,4 +44,4 @@ def main():
     publish_text_to_channel()
 
 if __name__ == '__main__':
-    main()  
+    main()

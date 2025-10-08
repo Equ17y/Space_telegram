@@ -29,6 +29,7 @@ def publish_text_to_channel():
     try:
         response = requests.post(url, json=payload)
         data = response.json()
+        response.raise_for_status()
 
         if data['ok']:
             print("Текст успешно опубликован в канал!")

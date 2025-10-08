@@ -3,7 +3,7 @@ import random
 import requests
 from dotenv import load_dotenv
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
     telegram_api_key = os.environ['TELEGRAM_BOT_TOKEN']
     chat_id = os.environ['TELEGRAM_CHANNEL_ID']
@@ -20,4 +20,8 @@ if __name__ == '__main__':
     with open(image_path, 'rb') as f:
         files = {'photo': f}
         data = {'chat_id': chat_id}
-        requests.post(url, files=files, data=data)
+        response = requests.post(url, files=files, data=data)
+        response.raise_for_status()
+
+if __name__ == '__main__':
+    main()

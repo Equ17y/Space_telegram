@@ -44,7 +44,8 @@ def main():
             with open(image_path, 'rb') as f:
                 files = {'photo': f}
                 data = {'chat_id': chat_id}
-                requests.post(url, files=files, data=data)
+                response = requests.post(url, files=files, data=data)
+                response.raise_for_status()
 
             time.sleep(sec_per_hour * post_delay)
 

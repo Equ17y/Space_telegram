@@ -20,18 +20,18 @@ def fetch_epic(api_key, count=None):
     response = requests.get(f'https://api.nasa.gov/EPIC/api/natural/date/{latest_date}', params=params)
     response.raise_for_status()
 
-    images = response.json()
+    epic_images = response.json()
     if count:
-        images = images[:count]
+        epic_images = epic_images[:count]
 
-    for i, image in enumerate(images):
-        image_url = f'https://api.nasa.gov/EPIC/archive/natural/{date_formatted}/png/{image["image"]}.png'
-        filename = f'nasa_epic_{i}.png'
+    for image_number, image_data in enumerate(epic_images):
+        image_url = f'https://api.nasa.gov/EPIC/archive/natural/{date_formatted}/png/{image_data["image"]}.png'
+        filename = f'nasa_epic_{image_number}.png'
         download_image(image_url, f'images/{filename}')
         print(f'Скачано: {filename}')
 
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
     api_key = os.environ['NASA_API_KEY']
 
@@ -40,3 +40,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     fetch_epic(api_key, args.count)
+
+if __name__ == '__main__':
+    main()

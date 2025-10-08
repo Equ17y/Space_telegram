@@ -13,17 +13,17 @@ def fetch_apod(api_key, count=5):
     response = requests.get(url, params=params)
     response.raise_for_status()
 
-    for i, apod in enumerate(response.json()):
-        if apod['media_type'] != 'image':
+    for apod_number, apod_data in enumerate(response.json()):
+        if apod_data['media_type'] != 'image':
             continue
 
-        extension = get_file_extension(apod['url']) or '.jpg'
-        filename = f'nasa_apod_{i}{extension}'
-        download_image(apod['url'], f'images/{filename}')
+        extension = get_file_extension(apod_data['url']) or '.jpg'
+        filename = f'nasa_apod_{apod_number}{extension}'
+        download_image(apod_data['url'], f'images/{filename}')
         print(f'Скачано: {filename}')
 
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
     api_key = os.environ['NASA_API_KEY']
 
@@ -32,3 +32,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     fetch_apod(api_key, args.count)
+
+if __name__ == '__main__':
+    main()

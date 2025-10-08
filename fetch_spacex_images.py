@@ -14,17 +14,20 @@ def fetch_spacex_launch(launch_id=None):
     response.raise_for_status()
 
     launch = response.json()
-    images = launch['links']['flickr']['original']
+    image_urls = launch['links']['flickr']['original']
 
-    for i, image_url in enumerate(images):
-        filename = f'spacex_{i}.jpg'
+    for image_number, image_url in enumerate(image_urls):
+        filename = f'spacex_{image_number}.jpg'
         download_image(image_url, f'images/{filename}')
         print(f'Скачано: {filename}')
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(description='Скачать фото SpaceX')
     parser.add_argument('--launch_id', help='ID запуска')
     args = parser.parse_args()
 
     fetch_spacex_launch(args.launch_id)
+
+if __name__ == '__main__':
+    main()

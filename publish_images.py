@@ -16,7 +16,7 @@ except ImportError:
 
     sys.modules['imghdr'] = FakeImghdr()
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
     telegram_api_key = os.environ['TELEGRAM_BOT_TOKEN']
     chat_id = os.environ['TELEGRAM_CHANNEL_ID']
@@ -47,3 +47,6 @@ if __name__ == '__main__':
                 requests.post(url, files=files, data=data)
 
             time.sleep(sec_per_hour * post_delay)
+
+if __name__ == '__main__':
+    main()

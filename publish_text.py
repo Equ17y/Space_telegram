@@ -40,5 +40,8 @@ def publish_text_to_channel():
         print(f"Ошибка: {e}")
 
 
-if __name__ == '__main__':
+def main():
     publish_text_to_channel()
+
+if __name__ == '__main__':
+    main()  
